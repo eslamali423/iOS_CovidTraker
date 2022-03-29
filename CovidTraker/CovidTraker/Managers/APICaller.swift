@@ -13,6 +13,7 @@ import Foundation
 
 class APICaller {
     
+    
     static let shared  =  APICaller()
     
     private init () {}
@@ -22,6 +23,8 @@ class APICaller {
         case state(State)
     }
     
+    
+    //MARK:- URLs
     struct Constatns  {
         static let allSatetesUrl = URL(string: "https://api.covidtracking.com/v2/states.json")
        
@@ -30,7 +33,7 @@ class APICaller {
     
     
     
-    
+    //MARK:- Fetch National Data From API
     func getCovidData(for scope :  DataScope, completion:  @escaping ((Result<[DayData],Error>))->Void) {
        
         let urlString : String
@@ -68,6 +71,10 @@ class APICaller {
         task.resume()
     }
     
+    
+    
+    //MARK:- Fetch All Stats Data From API
+
     func getStateList(completion :  @escaping (Result<[State], Error>)->Void)  {
         guard let url = Constatns.allSatetesUrl else {return}
         

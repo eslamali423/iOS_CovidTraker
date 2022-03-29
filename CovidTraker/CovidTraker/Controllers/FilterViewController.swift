@@ -9,6 +9,8 @@ import UIKit
 
 class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    //MARK:- Vars
+    
     public var completion : ((State) -> Void)?
     
     private let tableView : UITableView = {
@@ -22,6 +24,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var stateViewModel = AllStatesViewModel()
     
+    //MARK:- Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,13 +45,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.frame = view.bounds
     }
     
-    func configureCancelButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapClose))
-    }
-    
-    @objc func didTapClose () {
-        dismiss(animated: true, completion: nil)
-    }
+
     
     
     //MARK:- Table
@@ -71,6 +68,16 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         dismiss(animated: true)
     }
     
+    //MARK:- Configure Cancel Button
+    func configureCancelButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapClose))
+    }
+    
+    @objc func didTapClose () {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    //MARK:- Get Data Form View Model
     func fetchData()  {
         stateViewModel.fetchState { (isSuccess) in
             if isSuccess {

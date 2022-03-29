@@ -9,8 +9,11 @@ import Foundation
 
 class AllStatesViewModel {
     
+    //MARK:- Vars
     var states : [State] = [] 
     
+    
+    //MARK:- Fetch All States Data From API
     func fetchState(completion : @escaping (Bool)->Void)  {
         APICaller.shared.getStateList {  [weak self] (result) in
             switch result {

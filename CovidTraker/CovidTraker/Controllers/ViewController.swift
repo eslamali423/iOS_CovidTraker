@@ -10,7 +10,9 @@ import Charts
 
 class ViewController: UIViewController, UITableViewDataSource {
 
+    //MARK:- Vars
     private var scope : APICaller.DataScope = .national
+  
     var stateViewModel = StateViewModel()
     
    public  let tableView : UITableView = {
@@ -22,7 +24,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         return table
     }()
     
-    
+    //MARK:- Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +37,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
    
-        
+   //MARK:- Configure TableView
     func configureTableView()  {
         view.addSubview(tableView)
         tableView.dataSource = self
@@ -49,6 +51,26 @@ class ViewController: UIViewController, UITableViewDataSource {
         tableView.frame = view.bounds
     }
 
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        stateViewModel.dayData.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let data =  stateViewModel.dayData[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = createText(with: data)
+    return cell
+    }
+    
+    func createText(with data : DayData) -> String?    {
+        let dateString = DateFormatter.prettyFormatter.string(from: data.date)
+       
+        return "\(dateString); \(data.count)"
+    }
+    
+    
+    
+    //MARK:- Configure Filtter Button
     func createFilterButton()  {
         let buttonTitle : String  = {
             switch scope {
@@ -72,10 +94,13 @@ class ViewController: UIViewController, UITableViewDataSource {
         
     }
     
+    
+    //MARK:- Configure Graph
     func createGraph () {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.width / 1.5))
         headerView.clipsToBounds = true
       
+        
         let set = stateViewModel.dayData.prefix(30)
         var entries : [BarChartDataEntry] = []
       
@@ -96,7 +121,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         tableView.tableHeaderView = headerView
     }
     
-    
+    //MARK:- Get Data Form View Model
     func fetchData()  {
         stateViewModel.fetchDate(scope: scope) { (isSuccess) in
             if isSuccess {
@@ -112,21 +137,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        stateViewModel.dayData.count
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data =  stateViewModel.dayData[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = createText(with: data)
-    return cell
-    }
-    
-    func createText(with data : DayData) -> String?    {
-        let dateString = DateFormatter.prettyFormatter.string(from: data.date)
-        print("\(dateString)")
-        return "\(dateString); \(data.count)"
-    }
+   
     
    
 
