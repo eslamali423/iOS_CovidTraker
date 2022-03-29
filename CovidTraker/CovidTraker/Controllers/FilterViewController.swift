@@ -9,7 +9,7 @@ import UIKit
 
 class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    private var completion : ((State) -> Void)?
+    public var completion : ((State) -> Void)?
     
     private let tableView : UITableView = {
         let table = UITableView(frame: .zero,style: .grouped)
@@ -19,6 +19,10 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }()
     
     
+    
+    var stateViewModel = AllStatesViewModel()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Select State"
@@ -26,6 +30,11 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
+        configureCancelButton()
+        stateViewModel.fetchState()
+        self.tableView.reloadData()
+        
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -33,23 +42,33 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.frame = view.bounds
     }
     
+    func configureCancelButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapClose))
+    }
+    
+    @objc func didTapClose () {
+        dismiss(animated: true, completion: nil)
+    }
+    
     
     //MARK:- Table
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return stateViewModel.states.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell =  tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let state = stateViewModel.states[indexPath.row]
         
+        let cell =  tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = state.name
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        // call completion
-        // dismiss
-        
+        let state =  stateViewModel.states[indexPath.row]
+        completion?(state)
+        dismiss(animated: true)
     }
     
 

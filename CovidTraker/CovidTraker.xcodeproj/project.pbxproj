@@ -16,6 +16,8 @@
 		28634D2827F3529300E38AEE /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28634D2727F3529300E38AEE /* FilterViewController.swift */; };
 		28634D2E27F352C300E38AEE /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28634D2D27F352C300E38AEE /* APICaller.swift */; };
 		28634D3227F3535D00E38AEE /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28634D3127F3535D00E38AEE /* State.swift */; };
+		28634D3727F3634300E38AEE /* AllStatesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28634D3627F3634300E38AEE /* AllStatesViewModel.swift */; };
+		28634D3A27F368D500E38AEE /* StateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28634D3927F368D500E38AEE /* StateViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		28634D2727F3529300E38AEE /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		28634D2D27F352C300E38AEE /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		28634D3127F3535D00E38AEE /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		28634D3627F3634300E38AEE /* AllStatesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllStatesViewModel.swift; sourceTree = "<group>"; };
+		28634D3927F368D500E38AEE /* StateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,7 @@
 		28634D1027F3515A00E38AEE /* CovidTraker */ = {
 			isa = PBXGroup;
 			children = (
+				28634D3527F3633700E38AEE /* ViewModels */,
 				28634D3027F3535500E38AEE /* Models */,
 				28634D2B27F352AE00E38AEE /* Managers */,
 				28634D2627F3527800E38AEE /* Controllers */,
@@ -98,6 +103,15 @@
 				28634D3127F3535D00E38AEE /* State.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		28634D3527F3633700E38AEE /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				28634D3627F3634300E38AEE /* AllStatesViewModel.swift */,
+				28634D3927F368D500E38AEE /* StateViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,8 +188,10 @@
 				28634D1227F3515A00E38AEE /* AppDelegate.swift in Sources */,
 				28634D2827F3529300E38AEE /* FilterViewController.swift in Sources */,
 				28634D2E27F352C300E38AEE /* APICaller.swift in Sources */,
+				28634D3A27F368D500E38AEE /* StateViewModel.swift in Sources */,
 				28634D1427F3515A00E38AEE /* SceneDelegate.swift in Sources */,
 				28634D3227F3535D00E38AEE /* State.swift in Sources */,
+				28634D3727F3634300E38AEE /* AllStatesViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
