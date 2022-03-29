@@ -36,7 +36,7 @@ struct TotalCases : Codable {
 }
 
 struct DayData : Codable {
-    let date : String
+    let date : Date
     let count : Int
 }
 

@@ -31,8 +31,8 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.delegate = self
         tableView.dataSource = self
         configureCancelButton()
-        stateViewModel.fetchState()
-        self.tableView.reloadData()
+       fetchData()
+       
         
         
     }
@@ -71,7 +71,15 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         dismiss(animated: true)
     }
     
-
+    func fetchData()  {
+        stateViewModel.fetchState { (isSuccess) in
+            if isSuccess {
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
 
 
 }

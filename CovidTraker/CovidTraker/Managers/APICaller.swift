@@ -7,6 +7,10 @@
 
 import Foundation
 
+
+
+
+
 class APICaller {
     
     static let shared  =  APICaller()
@@ -22,6 +26,9 @@ class APICaller {
         static let allSatetesUrl = URL(string: "https://api.covidtracking.com/v2/states.json")
        
     }
+    
+    
+    
     
     
     func getCovidData(for scope :  DataScope, completion:  @escaping ((Result<[DayData],Error>))->Void) {
@@ -43,7 +50,15 @@ class APICaller {
             
             do {
                 let result = try JSONDecoder().decode(CovidDataResponse.self, from: data)
-                print("DAAATAAAA::::: \(result.data.count)")
+                let models : [DayData] =  result.data.compactMap {
+                    guard let value =  $0.cases?.total.value,
+                        let date = DateFormatter.dayFormatter.date(from: $0.date) else {return nil}
+                
+                    return DayData(date: date, count: value)
+                
+                }
+               
+                completion(.success(models))
                
             }catch {
                 completion(.failure(error))
@@ -73,6 +88,5 @@ class APICaller {
         
     }
 }
-
 
 

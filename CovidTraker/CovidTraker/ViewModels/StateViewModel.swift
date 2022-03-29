@@ -9,13 +9,18 @@ import Foundation
 
 class StateViewModel {
     
-    func fetchDate (scope : APICaller.DataScope) {
-        APICaller.shared.getCovidData(for: scope) { (result) in
+    
+    var dayData : [DayData] = []
+    
+    func fetchDate (scope : APICaller.DataScope, completion:  @escaping (Bool)->Void) {
+        APICaller.shared.getCovidData(for: scope) { [weak self] (result) in
             switch result {
-            case .success(let data) :
-                break
+            case .success(let dayData) :
+                self?.dayData = dayData
+                completion(true)
             case .failure(let error) :
                 print(error)
+                completion(false)
              }
         }
     }
